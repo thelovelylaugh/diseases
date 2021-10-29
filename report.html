@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<body>
+    <div id="container">
+        
+    </div>
+<script>
+    const container = document.getElementById("container")
+    let infectedList;
+    async function getReportFile(){
+        let reportFile =  await fetch("report.json")
+        let reportText = await reportFile.text();
+        infectedList = JSON.parse(reportText)
+        console.log(Object.keys(infectedList))
+        writeHTML_Report();
+    }
+    
+    getReportFile()
+     
+    function writeHTML_Report(){
+    for(value of infectedList){
+        let item = document.createElement("div")
+        item.innerHTML = `<h4>${value.name}, ID: ${value.id}</h4>
+        <p>Diseases: ${value.disease}</p>`
+        container.appendChild(item);
+    }
+}
+
+
+</script>
+</body>
+</head>
+</html>
